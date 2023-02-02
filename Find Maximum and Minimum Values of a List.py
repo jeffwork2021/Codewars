@@ -14,7 +14,7 @@ def minimum(arr):
     return compareVal(lambda a, b: a < b, arr, float('inf'))
 
 def maximum(arr):
-    return compareVal(lambda a, b: a > b, arr, float('-inf'))
+    return compareVal(lambda a, b: a > b, arr, Integer.MIN_VALUE)
 
 def compareVal(f, arr, initialVal):
     ret = initialVal
