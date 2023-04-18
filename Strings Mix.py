@@ -58,25 +58,23 @@
 from operator import itemgetter
 
 def mix(s1, s2):
-    s1 = s1.lower()
-    s2 = s2.lower()
-
     tokens = list(set(s1+s2))
     l = []
     for t in tokens:
-        if t.isalpha():
+        if t.isalpha() and t.islower():
             c1 = s1.count(t)
             c2 = s2.count(t)
 
-            if c1 == c2 and c1 > 1:
-                l.append(tuple(['=', t, c1]))
-            elif c1 > c2 > 1:
-                l.append(tuple(['1', t, c1]))
-            elif c2 > c1 > 1:
-                l.append(tuple(['2', t, c2]))
-
-    return '/'.join(f'{k[0]}:{k[1]*k[2]}' 
-                        for k in sorted(l, key=itemgetter(2,1), reverse=True))
+            if c1 > 1 or c2 > 1:
+                if c1 == c2:
+                    l.append(tuple(['=', t, -c1]))
+                elif c1 > c2:
+                    l.append(tuple(['1', t, -c1]))
+                elif c2 > c1:
+                    l.append(tuple(['2', t, -c2]))
+    
+    return '/'.join(f'{k[0]}:{k[1]*-k[2]}' 
+                        for k in sorted(l, key=itemgetter(2,1), reverse=True)
 
 print(mix("my&friend&Paul has heavy hats! &", 
           "my friend John has many many friends &"))
