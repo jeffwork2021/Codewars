@@ -34,5 +34,11 @@
 #
 # Don't forget to convert the percent parameter as a percentage in the body of 
 # your function: if the parameter percent is 2 you have to convert it to 0.02.
+
 def nb_year(p0, percent, aug, p):
-    # your code
+    p_temp = p0
+    n = 0
+    while p_temp < p:
+        p_temp = int(p_temp * (1 + percent/100) + aug)
+        n += 1
+    return n
